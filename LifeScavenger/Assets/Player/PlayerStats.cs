@@ -27,6 +27,17 @@ public class PlayerStats : MonoBehaviour
     private float staminaCurrent;
     private int inventorySpaceCurrent;
     private float mouvementSpeed = 5f;
+    private List<string> inventoryItemName;
+
+    /*private PlayerStats myStats = null;
+
+    public PlayerStats getPlayerStats() {
+        if ( myStats == null ) {
+            myStats = new PlayerStats();
+        }
+
+        return myStats;
+    }*/
 
     // Start is called before the first frame update
     void Start(){
@@ -37,6 +48,7 @@ public class PlayerStats : MonoBehaviour
         weightCurrent = 0;
         staminaCurrent = StaminaMaximum;
         inventorySpaceCurrent = 0;
+        inventoryItemName = new List<string>();
         updateUI();
     }
 
@@ -90,16 +102,22 @@ public class PlayerStats : MonoBehaviour
         updateUI();
     }
 
-    public void takeObject( int space , int weight ) {
-        if ((inventorySpaceCurrent - space <= 0) || (weightCurrent + weight >= WeightMax))
+    public int takeObject( int space , int weight , string itemName) {
+        if ((inventorySpaceCurrent + space > InventorySpaceMax) || (weightCurrent + weight >= (WeightMax*2)))
         {
             //CANT TAKE
+            print("Can't take the object");
+            return -1;
         }
         else {
-            inventorySpaceCurrent -= space;
+            print("Can take the object: " + itemName);
+            inventorySpaceCurrent += space;
             weightCurrent += weight;
+            inventoryItemName.Add(itemName);
+
         }
         updateUI();
+        return 0;
     }
     public int loseHitPoint() {
         if (hitPointCurrent > 0) {
