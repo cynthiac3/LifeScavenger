@@ -28,7 +28,6 @@ public class EnemyAttack : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        Debug.Log("OnTriggerEnter Attacking c == " + c.tag != null? c.name.ToString() : "null");
         if (c.tag == "Player")
         {
             isAttacking = true;
@@ -39,7 +38,6 @@ public class EnemyAttack : MonoBehaviour
     }
     void OnTriggerExit(Collider c)
     {
-        Debug.Log("OnTriggerExit Attacking");
         if (c.tag == "Player")
         {
             isAttacking = false;
@@ -50,7 +48,6 @@ public class EnemyAttack : MonoBehaviour
     }
     void HitEvent()
     {
-        Debug.Log("BIM!!");
         attackFX.Play();
         if (target != null && Vector3.Distance(target.transform.position, transform.position) < 1f)
         {

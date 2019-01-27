@@ -57,7 +57,6 @@ public class NPCFollow : MonoBehaviour
 
                 if (targetDistance >= 3) // starts running
                 {
-                    Debug.Log("isRunning");
                     transform.GetComponent<Animator>().SetInteger("state", 2);
                     agent.speed = 3;
                 }

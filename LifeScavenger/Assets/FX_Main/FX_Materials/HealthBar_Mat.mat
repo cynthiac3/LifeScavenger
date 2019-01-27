@@ -22,7 +22,7 @@ Material:
     m_Floats:
     - _Cutoff: 0.5
     - _HealthAmount: 5
-    - _HealthCurrent: 5
+    - _HealthCurrent: 3
     - _HealthCurrentSlider: 0.837
     - _HealthTotal: 5
     - _node_3769: 0.359

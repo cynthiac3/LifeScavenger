@@ -104,6 +104,8 @@ MonoBehaviour:
   StaminaBar: {fileID: 2100000, guid: 4b3840b59ae963e488a5409504ced192, type: 2}
   InventoryBar: {fileID: 2100000, guid: a7b904eb8cbd4824796b34e8798f8c41, type: 2}
   WeightBar: {fileID: 2100000, guid: fb7af15ef27b4a34394a92aa36e902dd, type: 2}
+  CompletedBar: {fileID: 0}
+  successFX: {fileID: 0}
 --- !u!1001 &2280674745772092681
 PrefabInstance:
   m_ObjectHideFlags: 0

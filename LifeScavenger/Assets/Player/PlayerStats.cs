@@ -221,8 +221,7 @@ public class PlayerStats : MonoBehaviour
         if (hitPointCurrent > 0) {
             hitPointCurrent--;
         }
-        //Debug.Log("OUCH!! hitPointCurrent=" + hitPointCurrent.ToString());
-
+        
         if (lifeCurrent > 0){
             if (lifeCurrent == 1 && hitPointCurrent == 0) {
                 //GAME OVER

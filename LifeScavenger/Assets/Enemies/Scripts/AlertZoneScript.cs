@@ -21,7 +21,6 @@ public class AlertZoneScript : MonoBehaviour
     {
         if(c.tag == "Player")
         {
-            Debug.Log("OnTriggerEnter()");
             Enemy.GetComponent<EnemyAICharacterControl>().SetTarget(c);
         }
     }
@@ -29,7 +28,6 @@ public class AlertZoneScript : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-            Debug.Log("OnTriggerExit()");
             Enemy.GetComponent<EnemyAICharacterControl>().RemoveTarget();
         }
            

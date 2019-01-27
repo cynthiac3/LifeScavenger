@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class NPCPickup : MonoBehaviour
 { 
@@ -11,7 +13,8 @@ public class NPCPickup : MonoBehaviour
     public int nbAlliesReturned=0;
 
     public void addFollower(GameObject newFollower) {
-        followers.Add(newFollower);
+        if (followers.Find(e => (e.name == newFollower.name)) != null)
+            followers.Add(newFollower);
     }
 
     private void OnTriggerEnter(Collider other)
