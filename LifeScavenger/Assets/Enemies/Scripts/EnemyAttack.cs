@@ -52,7 +52,7 @@ public class EnemyAttack : MonoBehaviour
         Debug.Log("BIM!!");
         if (target != null && Vector3.Distance(target.transform.position, transform.position) < 1f)
         {
-            target.GetComponent<PlayerStats>().loseHitPoint();
+            target.GetComponentInParent<PlayerStats>().loseHitPoint();
         }
     }
 }

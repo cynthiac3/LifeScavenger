@@ -13,6 +13,8 @@ namespace Enemy.ThirdPerson
         GameObject target;                                    // target to aim for
         public GameObject alertZone;
         Vector3 spawnPoint;
+        public GameObject enemyAlertFX;
+        public GameObject enemyWaitFX;
 
         private void Start()
         {
@@ -29,6 +31,7 @@ namespace Enemy.ThirdPerson
             spawnPoint = transform.position;
             alertZone.GetComponent<AlertZoneScript>().Enemy = this as MonoBehaviour;
 
+            PlayerStats.OnRespawn += RemoveTarget;
 
         }
         private void Update()
@@ -46,15 +49,28 @@ namespace Enemy.ThirdPerson
                 character.Move(Vector3.zero, false, false);
         }
 
-
+        private Collider delayedTarget;
         public void SetTarget(Collider target)
         {
-            this.target = target.gameObject;
+            enemyAlertFX.GetComponent<AlertFXScript>().OnActive();
+            enemyWaitFX.GetComponent<WaitFxScript>().OnDeactive();
+            transform.LookAt(target.transform);
+
+            this.delayedTarget = target;
+            Invoke("SetTargetDelayed", 0.3f);
         }
         public void RemoveTarget()
         {
+            enemyWaitFX.GetComponent<WaitFxScript>().OnActive();
+            enemyAlertFX.GetComponent<AlertFXScript>().OnDeactive();
             this.target = null;
+        }
+
+        void SetTargetDelayed()
+        {
+            this.target = delayedTarget.gameObject;
         }
     }
         
+    
 }
