@@ -8,44 +8,45 @@ public class PlayerStats : MonoBehaviour
 
     public int LifeMaximum = 3;
     public int HitPointMaximum = 5;
-    public float WeightMax = 50f;
+    public float WeightMax = 30f;
     public float StaminaMaximum = 75;
     public int InventorySpaceMax = 10;
     public float StaminaOverTime = 0.5f;
 
     //ObjectUI
-    public Text hitPointText;
-    public Text staminaText;
-    public Text lifeText;
-    public Text weightText;
-    public Text inventoryText;
+    private Text hitPointText;
+    private Text staminaText;
+    private Text lifeText;
+    private Text weightText;
+    private Text inventoryText;
     public Material HealthBar;
     public Material StaminaBar;
     public Material InventoryBar;
     public Material WeightBar;
-    public Transform spawnPoint;
-    public Transform player;
-
+    private Transform spawnPoint;
+    private Transform player;
     //STAT ACTIF
     private int lifeCurrent;
     private int hitPointCurrent;
     private float weightCurrent;
     private float staminaCurrent;
     private int inventorySpaceCurrent;
-    private float mouvementSpeed = 5f;
     private List<string> inventoryItemName;
     private bool isSafeZone;
     private List<storedInventory> safeZoneInventory;
+    private bool ifAjustStat1;
+    private bool ifAjustStat2;
 
     // Start is called before the first frame update
     void Start(){
+
+        setupVariable();
+        ifAjustStat1 = false;
+        ifAjustStat2 = false;
         //HealthBar = FindObjectOfType<HealthBar_Mat>();
         safeZoneInventory = new List<storedInventory>();
         fillNeedCaptureObject();
         showCollectedItem();
-
-
-
         lifeCurrent = LifeMaximum;
         hitPointCurrent = HitPointMaximum;
         weightCurrent = 0;
@@ -56,21 +57,51 @@ public class PlayerStats : MonoBehaviour
         respawnCharacter();
         updateUI();
     }
+
+    public void setupVariable() {
+
+        hitPointText = GameObject.Find("HPText").GetComponent<Text>();
+        staminaText = GameObject.Find("StaminaText").GetComponent<Text>();
+        lifeText = GameObject.Find("LifeText").GetComponent<Text>();
+        weightText = GameObject.Find("WeightText").GetComponent<Text>();
+        inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
+        /*HealthBar = (Material)Resources.Load("Shader Forge/HealthBar_Mat", typeof(Material));
+        StaminaBar = GameObject.Find("StaminaBar_Mat").GetComponent<Material>();
+        InventoryBar = GameObject.Find("InventoryBar_Mat").GetComponent<Material>();
+        WeightBar = GameObject.Find("WeightBar_HS").GetComponent<Material>();*/
+
+        spawnPoint = GameObject.Find("SpawningPoint").GetComponent<Transform>();
+        player = GameObject.Find("MainCharacter").GetComponent<Transform>();
+    }
+
     public bool getSafeZoneStatus() { return isSafeZone; }
     public void fillNeedCaptureObject() {
-        safeZoneInventory.Add(new storedInventory(("Bake"), GameObject.Find("Bake")));
-        safeZoneInventory.Add(new storedInventory(("TableWeapon1"), GameObject.Find("TableWeapon1")));
-        safeZoneInventory.Add(new storedInventory(("TableWeapon2"), GameObject.Find("TableWeapon2")));
-        safeZoneInventory.Add(new storedInventory(("TableTools1"), GameObject.Find("TableTools1")));
-        safeZoneInventory.Add(new storedInventory(("TableTools2"), GameObject.Find("TableTools2")));
-        safeZoneInventory.Add(new storedInventory(("Workbench"), GameObject.Find("Workbench")));
-        safeZoneInventory.Add(new storedInventory(("TableKitchen"), GameObject.Find("TableKitchen")));
-        safeZoneInventory.Add(new storedInventory(("Bed-1"), GameObject.Find("Bed-1")));
-        safeZoneInventory.Add(new storedInventory(("Bed-2"), GameObject.Find("Bed-2")));
-        safeZoneInventory.Add(new storedInventory(("Bed-3"), GameObject.Find("Bed-3")));
-        safeZoneInventory.Add(new storedInventory(("Bed-4"), GameObject.Find("Bed-4")));
-        safeZoneInventory.Add(new storedInventory(("Bed-5"), GameObject.Find("Bed-5")));
-        safeZoneInventory.Add(new storedInventory(("Bed-6"), GameObject.Find("Bed-6")));
+        safeZoneInventory.Add(new storedInventory(("Bake")));
+        safeZoneInventory.Add(new storedInventory(("TableWeapon1")));
+        safeZoneInventory.Add(new storedInventory(("TableWeapon2")));
+        safeZoneInventory.Add(new storedInventory(("TableTools1")));
+        safeZoneInventory.Add(new storedInventory(("TableTools2")));
+        safeZoneInventory.Add(new storedInventory(("Workbench")));
+        safeZoneInventory.Add(new storedInventory(("TableKitchen")));
+        safeZoneInventory.Add(new storedInventory(("Bed-1")));
+        safeZoneInventory.Add(new storedInventory(("Bed-2")));
+        safeZoneInventory.Add(new storedInventory(("Bed-3")));
+        safeZoneInventory.Add(new storedInventory(("Bed-4")));
+        safeZoneInventory.Add(new storedInventory(("Bed-5")));
+        safeZoneInventory.Add(new storedInventory(("Bed-6")));
+        safeZoneInventory.Add(new storedInventory(("Barrel-1")));
+        safeZoneInventory.Add(new storedInventory(("Barrel-2")));
+        safeZoneInventory.Add(new storedInventory(("Bucket-2")));
+        safeZoneInventory.Add(new storedInventory(("Bucket-2")));
+        safeZoneInventory.Add(new storedInventory(("Firewood-1")));
+        safeZoneInventory.Add(new storedInventory(("Firewood-2")));
+        safeZoneInventory.Add(new storedInventory(("Firewood-3")));
+        safeZoneInventory.Add(new storedInventory(("Firewood-4")));
+        safeZoneInventory.Add(new storedInventory(("Firewood-5")));
+        safeZoneInventory.Add(new storedInventory(("Chair-1")));
+        safeZoneInventory.Add(new storedInventory(("Chair-2")));
+        safeZoneInventory.Add(new storedInventory(("Chair-3")));
+        safeZoneInventory.Add(new storedInventory(("Staircase")));
         //ect...
     }
 
@@ -97,27 +128,27 @@ public class PlayerStats : MonoBehaviour
     public void updateUI() {
         calculateValues();
         int hitPointUI = Mathf.Clamp(hitPointCurrent, 0, HitPointMaximum);
-        float staminaUI = Mathf.Clamp(staminaCurrent, 0, StaminaMaximum);
+        //float staminaUI = Mathf.Clamp(staminaCurrent, 0, StaminaMaximum);
+        float staminaUI = (staminaCurrent/StaminaMaximum) * 100;
         float weightPourc =  (weightCurrent/WeightMax) * 100;
 
         
 
         lifeText.text = lifeCurrent.ToString();
         weightText.text = "WEIGHT : " + weightPourc.ToString() + "%";
-        inventoryText.text = "SPACE: " + inventorySpaceCurrent.ToString() + "/" + InventorySpaceMax.ToString();
-
-        HealthBar.SetFloat("_HealthCurrent", hitPointUI);
+        inventoryText.text = "SPACE: " + inventorySpaceCurrent.ToString() + "/" + InventorySpaceMax.ToString();       
 
         hitPointText.text = hitPointCurrent.ToString() + "/" + HitPointMaximum.ToString();
-        staminaText.text = staminaCurrent.ToString() + "/" + StaminaMaximum.ToString();
+        staminaText.text = staminaCurrent.ToString("F2") + "%";
 
+        
         HealthBar.SetFloat("_HealthTotal", HitPointMaximum);
         StaminaBar.SetFloat("_StaminaTotal", StaminaMaximum);
         InventoryBar.SetFloat("_InvWeightMax", InventorySpaceMax);
         WeightBar.SetFloat("_WeightMax", WeightMax);
 
-        HealthBar.SetFloat("_HealthCurrent", hitPointCurrent);
-        StaminaBar.SetFloat("_StaminaCurrent", staminaCurrent);
+        HealthBar.SetFloat("_HealthCurrent", hitPointUI);
+        StaminaBar.SetFloat("_StaminaCurrent", staminaUI);
         InventoryBar.SetFloat("_InvWeightCurrent", inventorySpaceCurrent);
         WeightBar.SetFloat("_WeightCurrent", weightPourc);
 
@@ -131,15 +162,15 @@ public class PlayerStats : MonoBehaviour
             staminaCurrent -= StaminaOverTime * Time.deltaTime;
         }
         //print("After : " + staminaCurrent.ToString());
-        if (staminaCurrent == 0f) {
+        if (staminaCurrent <= 0f) {
             outOfStamina();
         }
     }
 
     public void outOfStamina() {
         bool isOutOfHP = false;
-        while (isOutOfHP) {
-            isOutOfHP = (loseHitPoint() == 0);
+        while (!isOutOfHP) {
+            isOutOfHP = (loseHitPoint() <= 0);
         }
 
     }
@@ -177,10 +208,10 @@ public class PlayerStats : MonoBehaviour
     }
     public int loseHitPoint()
     {
-        Debug.Log("OUCH!! hitPointCurrent=" + hitPointCurrent.ToString());
         if (hitPointCurrent > 0) {
             hitPointCurrent--;
         }
+        //Debug.Log("OUCH!! hitPointCurrent=" + hitPointCurrent.ToString());
 
         if (lifeCurrent > 0){
             if (lifeCurrent == 1 && hitPointCurrent == 0) {
@@ -192,7 +223,6 @@ public class PlayerStats : MonoBehaviour
                 hitPointCurrent = HitPointMaximum;
                 lifeCurrent--;
                 respawnCharacter();
-                updateUI();
                 return 0;
             }
         }
@@ -200,8 +230,6 @@ public class PlayerStats : MonoBehaviour
             //GAME OVER
             return -1;
         }
-
-        updateUI();
         return 1;
     }
 
@@ -223,6 +251,7 @@ public class PlayerStats : MonoBehaviour
         inventoryItemName.Clear();
         weightCurrent = 0;
         inventorySpaceCurrent = 0;
+        adjustStats();
     }
 
     private void setCaptureItem(string name)
@@ -244,5 +273,28 @@ public class PlayerStats : MonoBehaviour
         player.transform.position = spawnPoint.transform.position;
 
         inventoryItemName.Clear();
+    }
+
+    public void adjustStats() {
+        int countNbGathered = 0;
+        foreach (storedInventory aObject in safeZoneInventory)
+        {
+            if (aObject.getCapture()) { countNbGathered++; }
+        }
+
+        float pourcGather = countNbGathered / safeZoneInventory.Count - 1;
+
+        if ( pourcGather >= 45 && !ifAjustStat1)
+        {
+            StaminaMaximum += 25;
+            InventorySpaceMax += 5;
+            ifAjustStat1 = true;
+        }
+        if ( pourcGather >= 85 && !ifAjustStat2)
+        {
+            HitPointMaximum += 2;
+            WeightMax += 10;
+            ifAjustStat2 = true;
+        }
     }
 }

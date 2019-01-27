@@ -5,11 +5,12 @@ using UnityEngine;
 public class SafeZone : MonoBehaviour
 {
     private PlayerStats myStat;
-    public GameObject safeZonePanel;
+    private GameObject safeZonePanel;
     // Start is called before the first frame update
     void Start()
     {
         myStat = FindObjectOfType<PlayerStats>();
+        safeZonePanel = GameObject.Find("SafeZonePanel");
     }
 
     // Update is called once per frame

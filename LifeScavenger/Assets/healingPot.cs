@@ -18,16 +18,16 @@ public class healingPot : MonoBehaviour
     }
     void Update()
     {
-        if (!mainCharStat.getSafeZoneStatus() && potUsed) {
+        if (potUsed) {
             timerActif -= Time.deltaTime;
         }
     }
 
     public void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if ( !potUsed && timerActif == 0 ){
+            if ( !potUsed && timerActif <= 0 ){
                 int hitPointsRecovery = Random.Range(1,3);
                 print("HP regen : " + hitPointsRecovery.ToString() );
                 mainCharStat.healingHitPoint(hitPointsRecovery);
@@ -35,6 +35,11 @@ public class healingPot : MonoBehaviour
                 potUsed = true;
                 timerActif = COOLDOWN;
             }
+            else
+            {
+                print(timerActif.ToString("F2") + " left before using");
+            }
+            
             
         }
     }

@@ -8,10 +8,10 @@ public class storedInventory
     private bool isCaptured;
     private GameObject visualComponent;
 
-    public storedInventory(string objectName , GameObject visual) {
+    public storedInventory(string objectName) {
         name = objectName;
         isCaptured = false;
-        visualComponent = visual;
+        visualComponent = GameObject.Find(objectName);
     }
 
     public void captureItem() {

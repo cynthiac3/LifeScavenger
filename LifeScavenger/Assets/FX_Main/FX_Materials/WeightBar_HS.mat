@@ -22,7 +22,7 @@ Material:
     m_Floats:
     - _Cutoff: 0.5
     - _WeightCurrent: 0
-    - _WeightMax: 50
+    - _WeightMax: 30
     m_Colors:
     - _WeightEmpty: {r: 0, g: 0.8344827, b: 1, a: 1}
     - _WeightFull: {r: 0.2627451, g: 0.2627451, b: 0.2627451, a: 1}
