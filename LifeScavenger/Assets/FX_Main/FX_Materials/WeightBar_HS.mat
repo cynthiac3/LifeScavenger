@@ -21,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _WeightCurrent: 0
+    - _WeightCurrent: 60
     - _WeightMax: 30
     m_Colors:
     - _WeightEmpty: {r: 0, g: 0.8344827, b: 1, a: 1}
