@@ -25,9 +25,14 @@ public class PlayerStats : MonoBehaviour
     public Material StaminaBar;
     public Material InventoryBar;
     public Material WeightBar;
-    public Material CompletedBar;
+    //public Material CompletedBar;
     private Transform spawnPoint;
     private Transform player;
+
+    //sound effect
+    //public AudioClip deathCharacter;
+    //public AudioSource PlayerSource;
+    private SoundManager musicManager;
     //STAT ACTIF
     private int lifeCurrent;
     private int hitPointCurrent;
@@ -46,7 +51,7 @@ public class PlayerStats : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-
+        SoundManager musicManager = FindObjectOfType<SoundManager>();
         setupVariable();
         ifAjustStat1 = false;
         ifAjustStat2 = false;
@@ -62,6 +67,7 @@ public class PlayerStats : MonoBehaviour
         inventoryItemName = new List<string>();
         isSafeZone = false;
         respawnCharacter();
+        musicManager.playAmbiance();
         updateUI();
     }
 
@@ -73,13 +79,11 @@ public class PlayerStats : MonoBehaviour
         weightText = GameObject.Find("WeightText").GetComponent<Text>();
         inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
         completedText = GameObject.Find("CompletedText").GetComponent<Text>();
-        /*HealthBar = (Material)Resources.Load("Shader Forge/HealthBar_Mat", typeof(Material));
-        StaminaBar = GameObject.Find("StaminaBar_Mat").GetComponent<Material>();
-        InventoryBar = GameObject.Find("InventoryBar_Mat").GetComponent<Material>();
-        WeightBar = GameObject.Find("WeightBar_HS").GetComponent<Material>();*/
 
         spawnPoint = GameObject.Find("SpawningPoint").GetComponent<Transform>();
         player = GameObject.Find("MainCharacter").GetComponent<Transform>();
+
+        //deathCharacter = (AudioClip)Resources.Load("DeathSFX", typeof(AudioClip)); ;
     }
 
     public bool getSafeZoneStatus() { return isSafeZone; }
@@ -231,6 +235,14 @@ public class PlayerStats : MonoBehaviour
             if (hitPointCurrent == 0) {
                 hitPointCurrent = HitPointMaximum;
                 lifeCurrent--;
+                AudioSource aud = GetComponent<AudioSource>();
+                //aud.PlayOneShot(deathCharacter);
+                /*aud.clip = deathCharacter;
+                aud.Play();*/
+
+                musicManager.playDeathSound();
+
+
                 respawnCharacter();
                 return 0;
             }
