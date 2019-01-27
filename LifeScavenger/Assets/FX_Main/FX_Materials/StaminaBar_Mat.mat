@@ -21,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _StaminaCurrent: 81.71329
+    - _StaminaCurrent: 91.493675
     - _StaminaTotal: 100
     m_Colors:
     - _HighStamina: {r: 0.9862069, g: 1, b: 0, a: 1}
