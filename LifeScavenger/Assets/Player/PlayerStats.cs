@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -237,6 +238,8 @@ public class PlayerStats : MonoBehaviour
                 //GAME OVER
                 gameover.SetActive(true);
                 animator.SetBool("Dead", true);
+                animator.SetTrigger("DeadTrigger");
+                StartCoroutine(DieAnimation());
                 return -1;
             }
 
@@ -333,5 +336,12 @@ public class PlayerStats : MonoBehaviour
             WeightMax += 10;
             ifAjustStat2 = true;
         }
+    }
+
+    IEnumerator DieAnimation()
+    {
+        yield return new WaitForSeconds(10);
+        animator.SetBool("Dead",  false);
+        SceneManager.LoadScene(0);
     }
 }
