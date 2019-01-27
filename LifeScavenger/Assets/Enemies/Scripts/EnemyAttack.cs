@@ -51,7 +51,8 @@ public class EnemyAttack : MonoBehaviour
         attackFX.Play();
         if (target != null && Vector3.Distance(target.transform.position, transform.position) < 1f)
         {
-            target.GetComponentInParent<PlayerStats>().loseHitPoint();
+            PlayerStats ps = target.GetComponentInParent<PlayerStats>();
+            ps?.loseHitPoint();
         }
     }
 }

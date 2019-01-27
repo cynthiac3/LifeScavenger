@@ -70,7 +70,7 @@ public class PlayerStats : MonoBehaviour
         inventoryItemName = new List<string>();
         isSafeZone = false;
         respawnCharacter();
-        musicManager.playAmbiance();
+        //musicManager.playAmbiance();
         updateUI();
         gameover = GameObject.Find("GameOver");
         gameover.SetActive(false);
@@ -109,7 +109,7 @@ public class PlayerStats : MonoBehaviour
         safeZoneInventory.Add(new storedInventory(("Bed-6")));
         safeZoneInventory.Add(new storedInventory(("Barrel-1")));
         safeZoneInventory.Add(new storedInventory(("Barrel-2")));
-        safeZoneInventory.Add(new storedInventory(("Bucket-2")));
+        safeZoneInventory.Add(new storedInventory(("Bucket-1")));
         safeZoneInventory.Add(new storedInventory(("Bucket-2")));
         safeZoneInventory.Add(new storedInventory(("Firewood-1")));
         safeZoneInventory.Add(new storedInventory(("Firewood-2")));
