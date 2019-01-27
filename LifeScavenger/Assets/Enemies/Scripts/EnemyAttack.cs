@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     bool isAttacking = false;
+    GameObject target;
     Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class EnemyAttack : MonoBehaviour
             isAttacking = true;
             anim.SetTrigger("Attack");
             Debug.Log("is Attacking");
+            target = c.gameObject;
         }
     }
     void OnTriggerExit(Collider c)
@@ -42,11 +44,15 @@ public class EnemyAttack : MonoBehaviour
             isAttacking = false;
             anim.SetTrigger("EndAttack");
             Debug.Log("end Attack");
+            target = null;
         }
     }
     void HitEvent()
     {
         Debug.Log("BIM!!");
-
+        if (target != null && Vector3.Distance(target.transform.position, transform.position) < 1f)
+        {
+            target.GetComponent<PlayerStats>().loseHitPoint();
+        }
     }
 }

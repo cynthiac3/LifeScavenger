@@ -119,7 +119,9 @@ public class PlayerStats : MonoBehaviour
         updateUI();
         return 0;
     }
-    public int loseHitPoint() {
+    public int loseHitPoint()
+    {
+        Debug.Log("OUCH!! hitPointCurrent=" + hitPointCurrent.ToString());
         if (hitPointCurrent > 0) {
             hitPointCurrent--;
         }
