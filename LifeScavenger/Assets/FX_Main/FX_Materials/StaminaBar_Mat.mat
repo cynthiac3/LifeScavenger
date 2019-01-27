@@ -20,10 +20,8 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _HealthCurrent: 5
-    - _HealthTotal: 5
-    - _StaminaCurrent: 5
+    - _StaminaCurrent: 26.97
     - _StaminaTotal: 5
     m_Colors:
-    - _HighStamina: {r: 0.9034483, g: 1, b: 0, a: 1}
-    - _LowStamina: {r: 0.1232699, g: 0.1517718, b: 0.4411765, a: 1}
+    - _HighStamina: {r: 0.9862069, g: 1, b: 0, a: 1}
+    - _LowStamina: {r: 0, g: 0.03275859, b: 0.25, a: 1}
