@@ -39,7 +39,7 @@ public class NPCFollow : MonoBehaviour
     {
         healthbar.transform.position = Camera.main.WorldToScreenPoint(this.transform.position + new Vector3(0,1.1f,0));
         // testing
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(KeyCode.I) && healthBarName == "Bar_Girl")
         {
             takeDamage();
         }
@@ -74,7 +74,7 @@ public class NPCFollow : MonoBehaviour
                 agent.isStopped = true;
             }
         }
-        else if (atHome)
+        else if (atHome) // inside safe space
         {
             if (atRestPoint) // resting
             {
@@ -133,18 +133,17 @@ public class NPCFollow : MonoBehaviour
     }
 
     private void takeDamage() {
-        healthbar.SetActive(true);
-        StartCoroutine(LateCall());
-
-        if (health == 0) // die & respawn at initial position
+        if (health <= 0) // die & respawn at initial position
         {
+            healthbar.SetActive(false);
             health = 100;
             Die();       
         }
         else {
-            health -= 10;
-        }
-        
+            healthbar.SetActive(true);
+            StartCoroutine(LateCall());
+            health -= 150;
+        }      
         healthbar.transform.GetChild(0).GetComponent<SimpleHealthBar>().UpdateBar(health, 100);
 
     }
@@ -153,21 +152,30 @@ public class NPCFollow : MonoBehaviour
         //Debug.Log("Current position: " + transform.position.x + " " + transform.position.y + " " + transform.position.z + "  " + healthBarName);
         //Debug.Log("initial position:" + initialPosition.position.x + " " + initialPosition.position.y + " " + initialPosition.position.z + healthBarName);
 
-        this.transform.position = initialPosition; // return to spawn position
-       
+        Time.timeScale = 1;
+        // stops moving
+        agent.isStopped = true; 
+        // reset values
         followingPlayer = false;
         atHome = false;
         atRestPoint = false;
-        agent.isStopped = true;
-        healthbar.SetActive(false);
-        transform.GetComponent<Animator>().SetInteger("state", 0);
-        transform.GetComponent<Light>().enabled = true;
+        // Play death animation
+        transform.GetComponent<Animator>().SetInteger("state", 3);
+        StartCoroutine(DieAnimation());    
     }
 
     IEnumerator LateCall()
     {
         yield return new WaitForSeconds(2);
         healthbar.SetActive(false);
+    }
+
+    IEnumerator DieAnimation()
+    {
+        yield return new WaitForSeconds(2);
+        transform.GetComponent<Animator>().SetInteger("state", 0); // return to idle state
+        this.transform.position = initialPosition; // return to spawn position   
+        transform.GetComponent<Light>().enabled = true; // turn light on 
     }
 
 }
