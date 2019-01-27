@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: StaminaBar_Mat
+  m_Shader: {fileID: 4800000, guid: 183aa1c3d70e7df4e8a12a88c6514652, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _Cutoff: 0.5
+    - _HealthCurrent: 5
+    - _HealthTotal: 5
+    - _StaminaCurrent: 5
+    - _StaminaTotal: 5
+    m_Colors:
+    - _HighStamina: {r: 0.9034483, g: 1, b: 0, a: 1}
+    - _LowStamina: {r: 0.1232699, g: 0.1517718, b: 0.4411765, a: 1}
