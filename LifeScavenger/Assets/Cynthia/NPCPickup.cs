@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCPickup : MonoBehaviour
-{
-    public GameObject follower;
+{ 
+    List<GameObject> followers = new List<GameObject>();
 
     public Transform[] allyHousePositions;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int nbAlliesReturned=0;
 
     public void addFollower(GameObject newFollower) {
-        follower = newFollower;
+        followers.Add(newFollower);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Door") {
-            follower.GetComponent<NPCFollow>().setDestination(allyHousePositions[0]);
+        if (other.gameObject.tag == "Safe") { 
+            // all current companions move to a position at the base/safe space
+            for (int i = 0; i < followers.Count; i++) {
+                Debug.Log(i);
+                followers[i].GetComponent<NPCFollow>().setDestination(allyHousePositions[nbAlliesReturned]);
+                nbAlliesReturned++;
+            }
+            followers.Clear();
         }   
     }
 }
