@@ -7,8 +7,6 @@ public class pickupItem : MonoBehaviour
     // Start is called before the first frame update
     public int typeItem;
     public string itemName;
-
-    private bool pickupActivate;
     private PlayerStats mainCharStat;
 
     void Start()
@@ -16,23 +14,21 @@ public class pickupItem : MonoBehaviour
         if (typeItem < 0 ) {
             typeItem = 0;
         }
-        pickupActivate = false;
+
+        mainCharStat = FindObjectOfType<PlayerStats>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnTriggerStay(Collider other)
     {
-        
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        pickupActivate = true;
-    }
-
-    public void OnCollisionExit(Collision collision)
-    {
-        pickupActivate = false;
+        //print(Input.anyKeyDown.ToString());
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            int takeIt = mainCharStat.takeObject(getSpace(), getWeight(), itemName);
+            if (takeIt == 0)
+            {
+                pickUp();
+            }
+        }
     }
     public int getSpace() {
         int spaceUsed = 0;
@@ -61,10 +57,7 @@ public class pickupItem : MonoBehaviour
 
     public void pickUp() {
         Destroy(this.gameObject);
+        
     }
-
-
-    public bool getPickupActivation() { return pickupActivate; }
-
-    //
+    
 }

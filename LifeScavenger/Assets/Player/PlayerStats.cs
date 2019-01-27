@@ -19,6 +19,8 @@ public class PlayerStats : MonoBehaviour
     public Text lifeText;
     public Text weightText;
     public Text inventoryText;
+    public Material HealthBar;
+    
 
     //STAT ACTIF
     private int lifeCurrent;
@@ -28,19 +30,18 @@ public class PlayerStats : MonoBehaviour
     private int inventorySpaceCurrent;
     private float mouvementSpeed = 5f;
     private List<string> inventoryItemName;
-
-    /*private PlayerStats myStats = null;
-
-    public PlayerStats getPlayerStats() {
-        if ( myStats == null ) {
-            myStats = new PlayerStats();
-        }
-
-        return myStats;
-    }*/
+    private bool isSafeZone;
+    private List<storedInventory> safeZoneInventory;
 
     // Start is called before the first frame update
     void Start(){
+        //HealthBar = FindObjectOfType<HealthBar_Mat>();
+        safeZoneInventory = new List<storedInventory>();
+        fillNeedCaptureObject();
+        showCollectedItem();
+
+        HealthBar.SetFloat("_HealthTotal", HitPointMaximum);
+
         hitPointBar.maxValue = HitPointMaximum;
         staminaBar.maxValue = StaminaMaximum;
         lifeCurrent = LifeMaximum;
@@ -49,7 +50,38 @@ public class PlayerStats : MonoBehaviour
         staminaCurrent = StaminaMaximum;
         inventorySpaceCurrent = 0;
         inventoryItemName = new List<string>();
+        isSafeZone = false;
         updateUI();
+    }
+    public void fillNeedCaptureObject() {
+        safeZoneInventory.Add(new storedInventory(("Bake"), GameObject.Find("Bake")));
+        safeZoneInventory.Add(new storedInventory(("TableWeapon1"), GameObject.Find("TableWeapon1")));
+        safeZoneInventory.Add(new storedInventory(("TableWeapon2"), GameObject.Find("TableWeapon2")));
+        safeZoneInventory.Add(new storedInventory(("TableTools1"), GameObject.Find("TableTools1")));
+        safeZoneInventory.Add(new storedInventory(("TableTools2"), GameObject.Find("TableTools2")));
+        safeZoneInventory.Add(new storedInventory(("Workbench"), GameObject.Find("Workbench")));
+        safeZoneInventory.Add(new storedInventory(("TableKitchen"), GameObject.Find("TableKitchen")));
+        safeZoneInventory.Add(new storedInventory(("Bed-1"), GameObject.Find("Bed-1")));
+        safeZoneInventory.Add(new storedInventory(("Bed-2"), GameObject.Find("Bed-2")));
+        safeZoneInventory.Add(new storedInventory(("Bed-3"), GameObject.Find("Bed-3")));
+        safeZoneInventory.Add(new storedInventory(("Bed-4"), GameObject.Find("Bed-4")));
+        safeZoneInventory.Add(new storedInventory(("Bed-5"), GameObject.Find("Bed-5")));
+        safeZoneInventory.Add(new storedInventory(("Bed-6"), GameObject.Find("Bed-6")));
+        //ect...
+    }
+
+    public void showCollectedItem() {
+
+        GameObject objectCollected;
+
+        foreach (storedInventory aObject in safeZoneInventory) {
+
+            //objectCollected = GetComponent(aObject.getName()).gameObject;
+            objectCollected = aObject.getVisualComponent();
+            if (objectCollected != null) {
+                objectCollected.SetActive(aObject.getCapture());
+            }
+        }
     }
 
     // Update is called once per frame
@@ -63,9 +95,14 @@ public class PlayerStats : MonoBehaviour
         int hitPointUI = Mathf.Clamp(hitPointCurrent, 0, HitPointMaximum);
         float staminaUI = Mathf.Clamp(staminaCurrent, 0, StaminaMaximum);
         float weightPourc =  (weightCurrent/WeightMax) * 100;
+
+        
+
         lifeText.text = "LIFE : " + lifeCurrent.ToString();
         weightText.text = "WEIGHT : " + weightPourc.ToString() + "%";
         inventoryText.text = "SPACE: " + inventorySpaceCurrent.ToString() + "/" + InventorySpaceMax.ToString();
+
+        HealthBar.SetFloat("_HealthCurrent", hitPointUI);
 
         hitPointBar.value = hitPointUI;
         staminaBar.value = staminaUI;
@@ -73,7 +110,9 @@ public class PlayerStats : MonoBehaviour
 
     public void calculateValues() {
         //print("Before : " + staminaCurrent.ToString());
-        staminaCurrent -= StaminaOverTime * Time.deltaTime;
+        if (!isSafeZone){
+            staminaCurrent -= StaminaOverTime * Time.deltaTime;
+        }
         //print("After : " + staminaCurrent.ToString());
         if (staminaCurrent == 0f) {
             outOfStamina();
@@ -144,5 +183,36 @@ public class PlayerStats : MonoBehaviour
 
         updateUI();
         return 1;
+    }
+
+    public void setSafeZone(bool isSafe) {
+        isSafeZone = isSafe;
+        if (isSafe) {
+            resplenishStamina();
+            depositInventory();
+        }
+        showCollectedItem();
+    }
+
+    private void depositInventory() {
+        foreach (string aObject in inventoryItemName)
+        {
+            setCaptureItem(aObject);
+        }
+
+        inventoryItemName.Clear();
+        weightCurrent = 0;
+        inventorySpaceCurrent = 0;
+    }
+
+    private void setCaptureItem(string name)
+    {
+        foreach (storedInventory aObject in safeZoneInventory)
+        {
+            if (aObject.getName().Equals(name))
+            {
+                aObject.captureItem();
+            }
+        }
     }
 }
