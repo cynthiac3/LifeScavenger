@@ -20,7 +20,8 @@ public class PlayerStats : MonoBehaviour
     public Text weightText;
     public Text inventoryText;
     public Material HealthBar;
-    
+    public Transform spawnPoint;
+    public Transform player;
 
     //STAT ACTIF
     private int lifeCurrent;
@@ -41,7 +42,7 @@ public class PlayerStats : MonoBehaviour
         showCollectedItem();
 
         HealthBar.SetFloat("_HealthTotal", HitPointMaximum);
-
+        respawnCharacter();
         hitPointBar.maxValue = HitPointMaximum;
         staminaBar.maxValue = StaminaMaximum;
         lifeCurrent = LifeMaximum;
@@ -53,6 +54,7 @@ public class PlayerStats : MonoBehaviour
         isSafeZone = false;
         updateUI();
     }
+    public bool getSafeZoneStatus() { return isSafeZone; }
     public void fillNeedCaptureObject() {
         safeZoneInventory.Add(new storedInventory(("Bake"), GameObject.Find("Bake")));
         safeZoneInventory.Add(new storedInventory(("TableWeapon1"), GameObject.Find("TableWeapon1")));
@@ -174,6 +176,7 @@ public class PlayerStats : MonoBehaviour
             if (hitPointCurrent == 0) {
                 hitPointCurrent = HitPointMaximum;
                 lifeCurrent--;
+                respawnCharacter();
                 updateUI();
                 return 0;
             }
@@ -216,5 +219,15 @@ public class PlayerStats : MonoBehaviour
                 aObject.captureItem();
             }
         }
+    }
+
+    public void respawnCharacter() {
+        weightCurrent = 0;
+        inventorySpaceCurrent = 0;
+        hitPointCurrent = HitPointMaximum;
+
+        player.transform.position = spawnPoint.transform.position;
+
+        inventoryItemName.Clear();
     }
 }
