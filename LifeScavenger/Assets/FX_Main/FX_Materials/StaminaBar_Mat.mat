@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: StaminaBar_Mat
   m_Shader: {fileID: 4800000, guid: 183aa1c3d70e7df4e8a12a88c6514652, type: 3}
   m_ShaderKeywords: 
@@ -20,8 +21,8 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _StaminaCurrent: 26.97
-    - _StaminaTotal: 5
+    - _StaminaCurrent: 99.4762
+    - _StaminaTotal: 100
     m_Colors:
     - _HighStamina: {r: 0.9862069, g: 1, b: 0, a: 1}
     - _LowStamina: {r: 0, g: 0.03275859, b: 0.25, a: 1}

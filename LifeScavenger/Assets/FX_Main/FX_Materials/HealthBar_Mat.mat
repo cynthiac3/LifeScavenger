@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: HealthBar_Mat
   m_Shader: {fileID: 4800000, guid: 01b27d63d8076ed4fa8f08cee19db25e, type: 3}
   m_ShaderKeywords: 
@@ -21,7 +22,7 @@ Material:
     m_Floats:
     - _Cutoff: 0.5
     - _HealthAmount: 5
-    - _HealthCurrent: 6.28
+    - _HealthCurrent: 5
     - _HealthCurrentSlider: 0.837
     - _HealthTotal: 5
     - _node_3769: 0.359

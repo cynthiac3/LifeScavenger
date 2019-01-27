@@ -25,6 +25,7 @@ public class SafeZone : MonoBehaviour
         if (other.gameObject.name.Equals("MainCharacter")) {
             //print("Your Safe");
             myStat.setSafeZone(true);
+            safeZonePanel.SetActive(true);
         }
 
     }
@@ -37,6 +38,7 @@ public class SafeZone : MonoBehaviour
         {
             //print("Your not Safe");
             myStat.setSafeZone(false);
+            safeZonePanel.SetActive(false);
         }
 
     }

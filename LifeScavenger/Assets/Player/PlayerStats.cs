@@ -14,12 +14,15 @@ public class PlayerStats : MonoBehaviour
     public float StaminaOverTime = 0.5f;
 
     //ObjectUI
-    public Slider hitPointBar;
-    public Slider staminaBar;
+    public Text hitPointText;
+    public Text staminaText;
     public Text lifeText;
     public Text weightText;
     public Text inventoryText;
     public Material HealthBar;
+    public Material StaminaBar;
+    public Material InventoryBar;
+    public Material WeightBar;
     public Transform spawnPoint;
     public Transform player;
 
@@ -41,10 +44,8 @@ public class PlayerStats : MonoBehaviour
         fillNeedCaptureObject();
         showCollectedItem();
 
-        HealthBar.SetFloat("_HealthTotal", HitPointMaximum);
-        respawnCharacter();
-        hitPointBar.maxValue = HitPointMaximum;
-        staminaBar.maxValue = StaminaMaximum;
+
+
         lifeCurrent = LifeMaximum;
         hitPointCurrent = HitPointMaximum;
         weightCurrent = 0;
@@ -52,6 +53,7 @@ public class PlayerStats : MonoBehaviour
         inventorySpaceCurrent = 0;
         inventoryItemName = new List<string>();
         isSafeZone = false;
+        respawnCharacter();
         updateUI();
     }
     public bool getSafeZoneStatus() { return isSafeZone; }
@@ -100,14 +102,27 @@ public class PlayerStats : MonoBehaviour
 
         
 
-        lifeText.text = "LIFE : " + lifeCurrent.ToString();
+        lifeText.text = lifeCurrent.ToString();
         weightText.text = "WEIGHT : " + weightPourc.ToString() + "%";
         inventoryText.text = "SPACE: " + inventorySpaceCurrent.ToString() + "/" + InventorySpaceMax.ToString();
 
         HealthBar.SetFloat("_HealthCurrent", hitPointUI);
 
-        hitPointBar.value = hitPointUI;
-        staminaBar.value = staminaUI;
+        hitPointText.text = hitPointCurrent.ToString() + "/" + HitPointMaximum.ToString();
+        staminaText.text = staminaCurrent.ToString() + "/" + StaminaMaximum.ToString();
+
+        HealthBar.SetFloat("_HealthTotal", HitPointMaximum);
+        StaminaBar.SetFloat("_StaminaTotal", StaminaMaximum);
+        InventoryBar.SetFloat("_InvWeightMax", InventorySpaceMax);
+        WeightBar.SetFloat("_WeightMax", WeightMax);
+
+        HealthBar.SetFloat("_HealthCurrent", hitPointCurrent);
+        StaminaBar.SetFloat("_StaminaCurrent", staminaCurrent);
+        InventoryBar.SetFloat("_InvWeightCurrent", inventorySpaceCurrent);
+        WeightBar.SetFloat("_WeightCurrent", weightPourc);
+
+
+
     }
 
     public void calculateValues() {

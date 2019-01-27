@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: WeightBar_HS
   m_Shader: {fileID: 4800000, guid: c1e68ec5f53dc434cbf5b86c9a589466, type: 3}
   m_ShaderKeywords: 
@@ -20,8 +21,8 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _WeightCurrent: 5
-    - _WeightMax: 5
+    - _WeightCurrent: 0
+    - _WeightMax: 50
     m_Colors:
     - _WeightEmpty: {r: 0, g: 0.8344827, b: 1, a: 1}
     - _WeightFull: {r: 0.2627451, g: 0.2627451, b: 0.2627451, a: 1}
