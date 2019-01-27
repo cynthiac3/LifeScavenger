@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -36,6 +37,9 @@ public class PlayerStats : MonoBehaviour
     private List<storedInventory> safeZoneInventory;
     private bool ifAjustStat1;
     private bool ifAjustStat2;
+
+    public delegate void RespawnAction();
+    public static event RespawnAction OnRespawn;
 
     // Start is called before the first frame update
     void Start(){
@@ -273,6 +277,8 @@ public class PlayerStats : MonoBehaviour
         player.transform.position = spawnPoint.transform.position;
 
         inventoryItemName.Clear();
+        if (OnRespawn != null)
+            OnRespawn();
     }
 
     public void adjustStats() {

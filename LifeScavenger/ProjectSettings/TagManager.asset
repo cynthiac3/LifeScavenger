@@ -11,6 +11,8 @@ TagManager:
   - StaminaBar
   - InventoryBar
   - WeightBar
+  - Safe
+  - Ennemies
   layers:
   - Default
   - TransparentFX
