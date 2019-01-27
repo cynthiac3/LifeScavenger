@@ -47,6 +47,7 @@ public class PlayerStats : MonoBehaviour
 
     public delegate void RespawnAction();
     public static event RespawnAction OnRespawn;
+    public GameObject successFX;
 
     // Start is called before the first frame update
     void Start(){
@@ -282,6 +283,8 @@ public class PlayerStats : MonoBehaviour
             if (aObject.getName().Equals(name))
             {
                 aObject.captureItem();
+                Transform droppedObjectTransform = aObject.getTransformObject();
+                successFX = Instantiate(successFX, droppedObjectTransform.position, droppedObjectTransform.rotation);
             }
         }
     }
