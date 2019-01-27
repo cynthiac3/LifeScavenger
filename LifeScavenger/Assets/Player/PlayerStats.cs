@@ -20,10 +20,12 @@ public class PlayerStats : MonoBehaviour
     private Text lifeText;
     private Text weightText;
     private Text inventoryText;
+    private Text completedText;
     public Material HealthBar;
     public Material StaminaBar;
     public Material InventoryBar;
     public Material WeightBar;
+    public Material CompletedBar;
     private Transform spawnPoint;
     private Transform player;
     //STAT ACTIF
@@ -70,6 +72,7 @@ public class PlayerStats : MonoBehaviour
         lifeText = GameObject.Find("LifeText").GetComponent<Text>();
         weightText = GameObject.Find("WeightText").GetComponent<Text>();
         inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
+        completedText = GameObject.Find("CompletedText").GetComponent<Text>();
         /*HealthBar = (Material)Resources.Load("Shader Forge/HealthBar_Mat", typeof(Material));
         StaminaBar = GameObject.Find("StaminaBar_Mat").GetComponent<Material>();
         InventoryBar = GameObject.Find("InventoryBar_Mat").GetComponent<Material>();
@@ -135,12 +138,14 @@ public class PlayerStats : MonoBehaviour
         int hitPointUI = Mathf.Clamp(hitPointCurrent, 0, HitPointMaximum);
         //float staminaUI = Mathf.Clamp(staminaCurrent, 0, StaminaMaximum);
         float staminaUI = (staminaCurrent/StaminaMaximum) * 100;
+        float completedUI = (getNbCollected()/safeZoneInventory.Count) * 100;
         float weightPourc =  (weightCurrent/WeightMax) * 100;
 
         
 
         lifeText.text = lifeCurrent.ToString();
-        weightText.text = "WEIGHT : " + weightPourc.ToString() + "%";
+        weightText.text = "WEIGHT : " + weightPourc.ToString("F2") + "%";
+        completedText.text = "COMPLETED : " + completedUI.ToString("F2") + "%";
         inventoryText.text = "SPACE: " + inventorySpaceCurrent.ToString() + "/" + InventorySpaceMax.ToString();       
 
         hitPointText.text = hitPointCurrent.ToString() + "/" + HitPointMaximum.ToString();
@@ -283,15 +288,19 @@ public class PlayerStats : MonoBehaviour
         if (OnRespawn != null)
             OnRespawn();
     }
-
-    public void adjustStats() {
-        int countNbGathered = 0;
+    public float getNbCollected() {
+        float countNbGathered = 0;
         foreach (storedInventory aObject in safeZoneInventory)
         {
             if (aObject.getCapture()) { countNbGathered++; }
         }
 
-        float pourcGather = countNbGathered / safeZoneInventory.Count - 1;
+        return countNbGathered;
+    }
+    public void adjustStats() {
+        float countNbGathered = getNbCollected();
+
+        float pourcGather = countNbGathered / safeZoneInventory.Count;
 
         if ( pourcGather >= 45 && !ifAjustStat1)
         {
