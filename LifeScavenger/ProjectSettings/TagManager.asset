@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Fire
   - Door
+  - LifeText
+  - HealthBar
+  - StaminaBar
+  - InventoryBar
+  - WeightBar
   layers:
   - Default
   - TransparentFX

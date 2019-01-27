@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Inventorybar_Mat
   m_Shader: {fileID: 4800000, guid: 6f5594c6701215b4ab2f2484b3f99280, type: 3}
   m_ShaderKeywords: 
@@ -20,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _InvWeightCurrent: 7.2
+    - _InvWeightCurrent: 10
     - _InvWeightMax: 10
     m_Colors:
     - _InvEmpty: {r: 0.3839749, g: 0.4378864, b: 0.9852941, a: 1}
