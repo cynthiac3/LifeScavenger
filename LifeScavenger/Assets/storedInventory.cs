@@ -22,4 +22,5 @@ public class storedInventory
     public string getName(){ return name; }
 
     public GameObject getVisualComponent() { return visualComponent; }
+    public Transform getTransformObject() { return visualComponent.transform; }
 }
