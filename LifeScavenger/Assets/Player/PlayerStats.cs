@@ -49,9 +49,12 @@ public class PlayerStats : MonoBehaviour
     public static event RespawnAction OnRespawn;
     public GameObject successFX;
 
+    GameObject gameover;
+    Animator animator;
+
     // Start is called before the first frame update
     void Start(){
-        SoundManager musicManager = FindObjectOfType<SoundManager>();
+        SoundManager musicManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         setupVariable();
         ifAjustStat1 = false;
         ifAjustStat2 = false;
@@ -69,6 +72,9 @@ public class PlayerStats : MonoBehaviour
         respawnCharacter();
         musicManager.playAmbiance();
         updateUI();
+        gameover = GameObject.Find("GameOver");
+        gameover.SetActive(false);
+        animator = transform.GetComponent<Animator>();
     }
 
     public void setupVariable() {
@@ -229,6 +235,8 @@ public class PlayerStats : MonoBehaviour
         if (lifeCurrent > 0){
             if (lifeCurrent == 1 && hitPointCurrent == 0) {
                 //GAME OVER
+                gameover.SetActive(true);
+                animator.SetBool("Dead", true);
                 return -1;
             }
 
@@ -240,7 +248,7 @@ public class PlayerStats : MonoBehaviour
                 /*aud.clip = deathCharacter;
                 aud.Play();*/
 
-                musicManager.playDeathSound();
+                //musicManager.playDeathSound();
 
 
                 respawnCharacter();
