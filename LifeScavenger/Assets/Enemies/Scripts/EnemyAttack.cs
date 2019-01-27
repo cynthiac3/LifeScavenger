@@ -8,6 +8,7 @@ public class EnemyAttack : MonoBehaviour
     bool isAttacking = false;
     GameObject target;
     Animator anim;
+    public ParticleSystem attackFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +51,7 @@ public class EnemyAttack : MonoBehaviour
     void HitEvent()
     {
         Debug.Log("BIM!!");
+        attackFX.Play();
         if (target != null && Vector3.Distance(target.transform.position, transform.position) < 1f)
         {
             target.GetComponentInParent<PlayerStats>().loseHitPoint();

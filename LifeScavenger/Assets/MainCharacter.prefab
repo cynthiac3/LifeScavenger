@@ -100,17 +100,10 @@ MonoBehaviour:
   StaminaMaximum: 100
   InventorySpaceMax: 10
   StaminaOverTime: 0.5
-  hitPointBar: {fileID: 0}
-  staminaBar: {fileID: 0}
-  lifeText: {fileID: 0}
-  weightText: {fileID: 0}
-  inventoryText: {fileID: 0}
   HealthBar: {fileID: 2100000, guid: b1c724f2457598c459833cd3e78ddef0, type: 2}
   StaminaBar: {fileID: 2100000, guid: 4b3840b59ae963e488a5409504ced192, type: 2}
   InventoryBar: {fileID: 2100000, guid: a7b904eb8cbd4824796b34e8798f8c41, type: 2}
   WeightBar: {fileID: 2100000, guid: fb7af15ef27b4a34394a92aa36e902dd, type: 2}
-  spawnPoint: {fileID: 0}
-  player: {fileID: 0}
 --- !u!1001 &2280674745772092681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,6 +195,10 @@ PrefabInstance:
     - target: {fileID: 152384, guid: 6fb37f825ee63264b9c2600bf1a52006, type: 3}
       propertyPath: m_Name
       value: TT_demo_male_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 152384, guid: 6fb37f825ee63264b9c2600bf1a52006, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 440584, guid: 6fb37f825ee63264b9c2600bf1a52006, type: 3}
       propertyPath: m_LocalPosition.x
